@@ -1106,10 +1106,10 @@ class MorePage extends StatelessWidget {
         const SizedBox(height: 8),
         Stack(children: [
           softCard(context,
-              child: Row(children: [
-                const LogoMark(64),
-                const SizedBox(width: 14),
-                const Expanded(
+              child: const Row(children: [
+                LogoMark(64),
+                SizedBox(width: 14),
+                Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text('تلاوة', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: skyDeep)),
                     SizedBox(height: 4),
@@ -1150,10 +1150,10 @@ class OurWorksPage extends StatelessWidget {
       body: ListView(padding: const EdgeInsets.fromLTRB(16, 8, 16, 24), children: [
         Stack(children: [
           softCard(context,
-              child: Row(children: [
-                const LogoMark(64),
-                const SizedBox(width: 14),
-                const Expanded(
+              child: const Row(children: [
+                LogoMark(64),
+                SizedBox(width: 14),
+                Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text('أعمالنا',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: skyDeep)),
@@ -1171,7 +1171,7 @@ class OurWorksPage extends StatelessWidget {
         const SizedBox(height: 16),
         softCard(context, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
-            CircleAvatar(
+            const CircleAvatar(
                 backgroundColor: goldLight,
                 radius: 26,
                 child: Text('عز',
@@ -1305,10 +1305,10 @@ class _HomePageState extends State<HomePage> {
                     : [skyLight, pinkLight],
               ),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Row(children: [
-                  const LogoMark(64),
-                  const SizedBox(width: 12),
-                  const Expanded(
+                const Row(children: [
+                  LogoMark(64),
+                  SizedBox(width: 12),
+                  Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text('تلاوة',
                           style: TextStyle(
@@ -1913,6 +1913,7 @@ class _AyahDetailPageState extends State<AyahDetailPage> {
             FilledButton.tonalIcon(
               onPressed: () async {
                 await audio.playAyah(_a);
+                if (!c.mounted) return;
                 if (audio.error != null && mounted) {
                   ScaffoldMessenger.of(c).showSnackBar(SnackBar(content: Text(audio.error!)));
                 }
@@ -1939,6 +1940,7 @@ class _AyahDetailPageState extends State<AyahDetailPage> {
             FilledButton.tonalIcon(
               onPressed: () async {
                 await Clipboard.setData(ClipboardData(text: _a.text));
+                if (!c.mounted) return;
                 if (mounted) {
                   ScaffoldMessenger.of(c)
                       .showSnackBar(const SnackBar(content: Text('تم نسخ الآية')));
@@ -1959,6 +1961,7 @@ class _AyahDetailPageState extends State<AyahDetailPage> {
               onPressed: () async {
                 final t = await askText(c, 'وسم للآية', tag ?? '',
                     chips: ['دعاء', 'أحكام', 'قصص', 'عقيدة', 'أخلاق']);
+                if (!c.mounted) return;
                 if (t != null) {
                   if (t.trim().isEmpty && !user.has(_a.id)) {
                     if (mounted) {
@@ -3124,10 +3127,10 @@ class _RecitationsPageState extends State<RecitationsPage>
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
             child: softCard(c,
-                child: Row(children: [
-                  const Icon(Icons.headphones_rounded, color: sky),
-                  const SizedBox(width: 10),
-                  const Expanded(
+                child: const Row(children: [
+                  Icon(Icons.headphones_rounded, color: sky),
+                  SizedBox(width: 10),
+                  Expanded(
                     child: Text(
                         'اضغط زر التشغيل للاستماع إلى سورة الفاتحة بصوت القارئ، '
                         'ويُحفظ اختيارك قارئًا افتراضيًا للتطبيق.',
@@ -3408,10 +3411,10 @@ class _QiraatPageState extends State<QiraatPage> {
         softCard(context,
             onTap: () => Navigator.push(
                 context, MaterialPageRoute(builder: (_) => const SurahsPage())),
-            child: Row(children: [
-              const CircleAvatar(backgroundColor: tealLight, child: Icon(Icons.menu_book_rounded, color: teal)),
-              const SizedBox(width: 12),
-              const Expanded(
+            child: const Row(children: [
+              CircleAvatar(backgroundColor: tealLight, child: Icon(Icons.menu_book_rounded, color: teal)),
+              SizedBox(width: 12),
+              Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('حفص عن عاصم', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800)),
                   SizedBox(height: 4),
@@ -3419,7 +3422,7 @@ class _QiraatPageState extends State<QiraatPage> {
                       style: TextStyle(fontSize: 13, height: 1.7)),
                 ]),
               ),
-              const Icon(Icons.chevron_left),
+              Icon(Icons.chevron_left),
             ])),
         const SizedBox(height: 12),
         softCard(context, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -3436,7 +3439,7 @@ class _QiraatPageState extends State<QiraatPage> {
               'يُنزَّل مرة واحدة ويبقى دون إنترنت.',
               style: TextStyle(fontSize: 13, height: 1.8)),
           const SizedBox(height: 6),
-          Text(WarshService.attribution, style: const TextStyle(fontSize: 12, color: Colors.grey, height: 1.7)),
+          const Text(WarshService.attribution, style: TextStyle(fontSize: 12, color: Colors.grey, height: 1.7)),
           const SizedBox(height: 12),
           if (_downloading)
             Column(children: [
@@ -3927,10 +3930,10 @@ class _SettingsPageState extends State<SettingsPage> {
           ])),
           const SizedBox(height: 18),
           Stack(children: [
-            softCard(c, child: Row(children: [
-              const LogoMark(64),
-              const SizedBox(width: 14),
-              const Expanded(
+            softCard(c, child: const Row(children: [
+              LogoMark(64),
+              SizedBox(width: 14),
+              Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('تلاوة — الإصدار 1.0.0',
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800)),
