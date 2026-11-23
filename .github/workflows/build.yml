@@ -92,6 +92,15 @@ jobs:
           t = t.replace('</manifest>', perms + '</manifest>')
           p.write_text(t, encoding='utf-8')
           print('manifest OK')
+          # Pin compileSdk 36: AndroidX core 1.17 / splashscreen 1.2 (pulled in by
+          # the audio/notification plugins) require compileSdk 36+, and the
+          # :app:checkReleaseAarMetadata task fails otherwise.
+          g = Path('android/app/build.gradle.kts')
+          gt = g.read_text(encoding='utf-8')
+          assert 'compileSdk = flutter.compileSdkVersion' in gt
+          gt = gt.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 36')
+          g.write_text(gt, encoding='utf-8')
+          print('compileSdk pinned to 36')
           PY
           python3 tools/make_icon.py android/app/src/main/res
 
