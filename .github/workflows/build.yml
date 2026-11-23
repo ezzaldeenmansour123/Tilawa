@@ -28,7 +28,7 @@ jobs:
 
       - name: Download Quran datasets (pinned revisions)
         run: |
-          pip install -q huggingface_hub pyarrow pandas
+          pip install -q huggingface_hub pyarrow pandas pillow
           python3 - <<'PY'
           from huggingface_hub import snapshot_download
           d1 = snapshot_download(
